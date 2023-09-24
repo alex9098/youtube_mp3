@@ -10,6 +10,7 @@ app.use(cors({origin:"*"}))
 app.get("/:id",async(req,res)=>{
     console.log("hello ");
     try {
+         if(id != "favicon.ico"){
         const {id} = req.params
         const videoUrl = `https://www.youtube.com/watch?v=${id}`
         const videoInfo = await yt.getInfo(videoUrl)
@@ -17,6 +18,7 @@ app.get("/:id",async(req,res)=>{
         console.log(audio[0].url);
         const url = audio[0].url
         res.json({"url":url})
+         }
     } catch (error) {
         console.log(error);
     }
