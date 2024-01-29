@@ -12,8 +12,12 @@ app.get("/:id",async(req,res)=>{
     try {
         var {id} = req.params
          if(id != "favicon.ico"){
-        const videoUrl = `https://www.youtube.com/watch?v=${id}`
-        const videoInfo = await yt.getInfo(videoUrl)
+        let videoUrl = `https://www.youtube.com/watch?v=${id}`
+        let videoInfo = await yt.getInfo(videoUrl)
+        if(!videoInfo) {
+         videoUrl = `https://youtu.be/Q3pOVxHW8XY?si=${id}`
+         videoInfo = await yt.getInfo(videoUrl)     
+        }
         const audio = yt.filterFormats(videoInfo.formats,"audioonly")
         console.log(audio[0].url);
         const url = audio[0].url
